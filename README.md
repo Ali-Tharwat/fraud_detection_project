@@ -1,68 +1,127 @@
-# Fraud Detection Project
+# DataOrbit - Healthcare Provider Fraud Detection Project  
+![CMS.gov](https://img.shields.io/badge/CMS.gov-005EA2?style=for-the-badge&logo=star-of-life&logoColor=white)
 
-## Project Overview
+## 📌 Project Overview
+Healthcare fraud costs the U.S. healthcare system over **$68 billion annually**. This project, commissioned by DataOrbit (simulated), aims to assist **Medicare** in detecting fraudulent healthcare providers using machine learning.  
 
-This project applies machine learning to detect fraudulent healthcare providers using Medicare claims data. The main objective is to develop a robust predictive model capable of handling severe class imbalance and delivering transparent, explainable outputs suitable for real-world auditing and intervention.
+Our goal is to develop a data-driven, interpretable pipeline that identifies high-risk providers while minimizing false positives. The system utilizes advanced classification models to analyze multi-table claims data, handling severe class imbalances to flag potential fraud effectively.
 
-Key elements of the project include:
-- **Data exploration and feature engineering:** Several CSV files related to beneficiary, inpatient, outpatient, and labeled transactions are processed (`data/Train_Beneficiarydata.csv`, `data/Train_Inpatientdata.csv`, `data/Train_Outpatientdata.csv`, `data/Train_labels.csv`, etc.).
-- **Modeling approaches:** Comparative modeling with algorithms such as Decision Trees,Random Forest,Logistic Regression,Gradient Boost, AdaBoost, SVM, and custom ensemble methods with detailed trial logs in the modeling notebooks.
-- **Evaluation:** Models are validated with metrics such as accuracy, precision, recall, and F1-score, and results are documented in `notebooks/03_evaluation.ipynb`.
-- **Documentation:** Domain-specific documentation and codebooks are provided in the `/docs` directory for deeper understanding and contextual reference.
+For a deep dive into the business context and technical requirements, please refer to the [Project Description](./docs/Project%20Description.pdf).
 
-## Team Members
+## 📊 Dataset Information
 
-- Ali Tharwat
-- Amr Khaled
-- Mostafa Ahmed
-- Lakshy Rupani
+### Source
+![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=Kaggle&logoColor=white)  
 
-## Summary of Results
+The dataset used in this project is the **Healthcare Provider Fraud Detection Analysis** dataset provided by *rohitrox* on Kaggle.  
 
-- **Best Model Achieved:** The ensemble approach (Logistic Regression + AdaBoost) and SVM demonstrated superior fraud detection performance in trial runs.
-- **Handling Imbalance:** Special attention was given to resampling techniques and custom evaluation metrics due to the rarity of fraudulent events in the data.
-- **Results:** Models were evaluated using accuracy, precision, recall, and F1-score on a holdout test set. Ensemble models achieved notably higher F1-scores compared to baseline approaches, reflecting better detection of minority (fraudulent) cases.
-- **Explainability:** Feature importance assessments and model interpretation are included in the notebooks.
+**Link:** [Kaggle Dataset Source](https://www.kaggle.com/datasets/rohitrox/healthcare-provider-fraud-detection-analysis)
 
-For specific numerical outcomes and charts, refer to the summary cells in `notebooks/03_evaluation.ipynb`, and to the model checkpoints in the `notebooks/` directory.
+### Dataset Specs
+* **Provider Coverage:** Data includes over 5,400 providers.
+* **Fraud Prevalence:** Highly imbalanced class distribution, with approximately **9-10%** of providers labeled as potentially fraudulent.
 
-## Reproduction Instructions
+### File Descriptions
+The raw data consists of four primary CSV files located in the `data/` directory:
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Ali-Tharwat/fraud_detection_project.git
-   cd fraud_detection_project
-   ```
+| File Name | Description |
+| :--- | :--- |
+| **Train_Beneficiarydata.csv** | Patient demographics, insurance coverage, and chronic conditions (e.g., Alzheimer's, Diabetes). |
+| **Train_Inpatientdata.csv** | Claims for patients admitted to hospitals, including admission dates, diagnosis codes, and reimbursement amounts. |
+| **Train_Outpatientdata.csv** | Claims for hospital visits where patients were not admitted (tests, minor procedures). |
+| **Train_labels.csv** | The target variable file linking `Provider` IDs to a binary fraud label (`Yes`/`No`). |
 
-2. **Set up your Python environment:**
-   - Use Python 3.7 or above
-   - Install package dependencies as specified by your notebooks (`pandas`, `scikit-learn`, `numpy`, `matplotlib`, etc.)
-   - Install via pip:
-     ```bash
-     pip install pandas scikit-learn numpy matplotlib
-     ```
+> **Note:** Detailed codebooks explaining every column (e.g., diagnosis codes, reimbursement definitions) can be found in `docs/DE 10 Codebook.pdf`.
 
-3. **Prepare the data:**
-   - Ensure that all raw and processed data files are present in the `data/` directory:
-     - `Train_Beneficiarydata.csv`
-     - `Train_Inpatientdata.csv`
-     - `Train_Outpatientdata.csv`
-     - `Train_labels.csv`
-     - `final_train_data.csv`
-     - `final_test_data.csv`
-   - If needed, consult `docs/` for codebooks and file formats.
+## 💻 Tech Stack
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
+![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black)
+![Seaborn](https://img.shields.io/badge/Seaborn-77ACF1?style=for-the-badge&logo=seaborn&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
 
-4. **Run the analysis:**
-   - Start a Jupyter Notebook server:
-     ```bash
-     jupyter notebook
-     ```
-   - Open and execute `notebooks/01_data_exploration_and_feature_engineering.ipynb` to prepare data and features.
-   - Proceed through the modeling notebooks (`02_modeling_logistic+ada.ipynb`, `02_modeling_svm.ipynb`, etc.).
-   - Review results in `03_evaluation.ipynb`.
+## 📂 Project Structure
 
-5. **Documentation:**
-   - For detailed variable explanations and context, view files in `docs/` such as:
-     - `Project Description.pdf`
-     - `DE 10 Codebook.pdf`
-     - `code_definitions_grouped.csv`
+```text
+fraud_detection_project/
+├── data/                                             # Data storage
+│   ├── Train_Beneficiarydata.csv                     # Patient demographics & chronic conditions
+│   ├── Train_Inpatientdata.csv                       # Hospital admission claims data
+│   ├── Train_Outpatientdata.csv                      # Hospital visit (non-admission) claims
+│   ├── Train_labels.csv                              # Target labels (Fraud/Non-Fraud)
+│   ├── final_test_data.csv                           # Processed test set for evaluation
+│   └── final_train_data.csv                          # Processed training set for modeling
+├── docs/                                             # Documentation & references
+│   ├── CMSv28_Descriptions/                          # CMS diagnosis & procedure code references
+│   │   ├── CMS28_DESC_LONG_DX.txt                    # Long descriptions for diagnosis codes
+│   │   ├── CMS28_DESC_LONG_SG.txt                    # Long descriptions for surgical procedures
+│   │   ├── CMS28_DESC_SHORT_DX.txt                   # Short descriptions for diagnosis codes
+│   │   └── CMS28_DESC_SHORT_SG.txt                   # Short descriptions for surgical procedures
+│   ├── DE 10 Codebook.pdf                            # Detailed data dictionary & variable definitions
+│   ├── FY_11_FR_County_to_CBSA_Xwalk.txt             # Crosswalk mapping counties to CBSA regions
+│   ├── Project Description.pdf                       # Official project requirements & capstone details
+│   └── code_definitions_grouped.csv                  # Grouped medical code definitions for engineering
+├── models/                                           # Serialized machine learning models
+│   ├── best_svm_fraud_model.pkl                      # Trained Support Vector Machine model
+│   ├── fraud_detection_adaboost.pkl                  # Trained AdaBoost classifier
+│   └── gradient_boosting.pkl                         # Trained Gradient Boosting model
+├── notebooks/                                        # Jupyter notebooks for analysis & dev
+│   ├── 01_data_exploration_and_feature_engineering.ipynb # EDA, cleaning & feature creation
+│   ├── 02_modeling_Trial .ipynb                      # Decision Trees, Random Forest, Gradient Boosting
+│   ├── 02_modeling_logistic+ada.ipynb                # Logistic Regression & AdaBoost
+│   ├── 02_modeling_svm.ipynb                         # SVM model 
+│   ├── 02_modeling_updated.ipynb                     # All models: DT, RF, GB, AdaBoost, LogReg, SVM
+│   └── 03_evaluation2.ipynb                          # Final model evaluation & metric analysis
+├── reports/                                          # Final project deliverables
+│   ├── presentation.pptx                              # In-depth presentation/analysis slides
+│   └── Technical Report.pdf                          # Comprehensive technical documentation
+├── .gitignore                                        # Files to ignore in version control
+└── README.md                                         # Project overview & instructions
+````
+
+## ⚙️ Methodology
+
+1.  **Data Exploration & Engineering:**
+
+      * Merged multi-source data (Inpatient + Outpatient + Beneficiary) by `Provider` and `BeneID`.
+      * Created aggregated features: *Average Claim Amount*, *Count of Claims*, *Chronic Condition Scores*, and *Diagnosis Code Counts*.
+
+2.  **Handling Imbalance:**
+
+      * Addressed the 1:9 fraud ratio using resampling techniques and class-weighted learning to ensure the model captures minority class patterns.
+
+3.  **Modeling:**
+
+      * Tested multiple algorithms: **Support Vector Machines (SVM)**, **Logistic Regression**, **AdaBoost**, and **Gradient Boosting**.
+      * The **Ensemble Approach (Logistic Regression + AdaBoost)** and **SVM** yielded the most robust results.
+
+4.  **Evaluation:**
+
+      * Optimized for **Recall** and **F1-Score** to minimize missed fraud cases (False Negatives).
+      * Analysis includes Confusion Matrices and ROC-AUC curves available in `notebooks/03_evaluation2.ipynb`.
+
+### 🏆 Model Comparison Table (Test Set Metrics)
+
+| Model | Recall | Precision | F1-Score | ROC-AUC | PR-AUC |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Gradient Boosting** | 0.7746 | 0.4583 | 0.5759 | 0.9198 | 0.5233 |
+| **Decision Tree** | 0.7465 | 0.4609 | 0.5699 | 0.8821 | 0.4582 |
+| **Random Forest** | 0.6620 | 0.4608 | 0.5434 | 0.9187 | 0.5349 |
+| **Logistic Regression** | 0.9155 | 0.3846 | 0.5417 | 0.9461 | 0.7113 |
+| **AdaBoost** | 0.4366 | 0.7209 | 0.5439 | 0.8883 | 0.5537 |
+| **SVM (Class Weight)** | 0.9079 | 0.3966 | 0.5520 | 0.9467 | 0.6886 |
+
+*Metrics cited from Technical Report*
+
+## 👥 Team Members
+
+  * **Ali Tharwat**
+  * **Amr Khaled**
+  * **Mostafa Ahmed**
+  * **Lakshy Rupani**
+
+-----
+
+*This project was conducted as part of the academic curriculum for the Machine Learning course (Winter 2025) at the German International University of Applied Sciences (GIU)*
